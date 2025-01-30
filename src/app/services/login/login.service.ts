@@ -25,4 +25,22 @@ export class LoginService {
       password
     }, { headers });
   }
+
+
+  registrar(datos: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+
+    return this.http.post(this.API_URL, { accion: 'registrar', ...datos }, { headers });
+  }
+  recuperarPassword(correo: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+
+    return this.http.post(this.API_URL, { accion: 'recuperar_password', correo }, { headers });
+  }
 }
