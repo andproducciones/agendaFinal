@@ -13,7 +13,9 @@
         <ion-item>
           <ion-input [(ngModel)]="password" type="password" placeholder="Contraseña"></ion-input>
         </ion-item>
-        <ion-button expand="block" (click)="login()" class="login-button">Ingresar</ion-button>
+        <ion-button expand="block" (click)="login()" [disabled]="bloqueado" class="login-button">
+          {{ bloqueado ? 'Bloqueado' : 'Ingresar' }}
+        </ion-button>
 
         <div class="buttons-container">
           <ion-button expand="block" fill="outline" (click)="crearCuenta()">Crear Cuenta</ion-button>

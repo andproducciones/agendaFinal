@@ -12,6 +12,10 @@ import { LoginService } from '../services/login/login.service';
 export class LoginPage {
   correo: string = '';
   password: string = '';
+  intentosFallidos: number = 0;
+  bloqueado: boolean = false;
+  tiempoRestante: number = 60; // 1 minuto en segundos
+  interval: any;
 
   constructor(
     private loginService: LoginService,
@@ -20,22 +24,48 @@ export class LoginPage {
   ) { }
 
   async login() {
+    if (this.bloqueado) {
+      this.showAlert('Cuenta Bloqueada', `Inténtalo de nuevo en ${this.tiempoRestante} segundos.`);
+      return;
+    }
+
     if (!this.correo || !this.password) {
       this.showAlert('Error', 'Ingrese su correo y contraseña.');
       return;
     }
 
     this.loginService.login(this.correo, this.password).subscribe(async response => {
-      if (!response.data.estado) {
+      if (response.data && response.data.estado) {
         localStorage.setItem('userData', JSON.stringify(response.data));
-
-        this.router.navigate(['/menu']); // Redirigir al Home después del login
+        this.router.navigate(['/menu']); // Redirigir al menú después del login
+        this.intentosFallidos = 0; // Reiniciar intentos al ingresar correctamente
       } else {
+        this.intentosFallidos++;
         this.showAlert('Error', 'Credenciales incorrectas.');
+
+        if (this.intentosFallidos >= 3) {
+          this.bloquearUsuario();
+        }
       }
     }, error => {
       this.showAlert('Error', 'No se pudo conectar con el servidor.');
     });
+  }
+
+  bloquearUsuario() {
+    this.bloqueado = true;
+    this.tiempoRestante = 60; // 1 minuto de bloqueo
+    this.showAlert('Cuenta Bloqueada', 'Has fallado 3 intentos. Espera 1 minuto para intentarlo nuevamente.');
+
+    this.interval = setInterval(() => {
+      this.tiempoRestante--;
+
+      if (this.tiempoRestante <= 0) {
+        clearInterval(this.interval);
+        this.bloqueado = false;
+        this.intentosFallidos = 0; // Reiniciar intentos después del desbloqueo
+      }
+    }, 1000);
   }
 
   crearCuenta() {
