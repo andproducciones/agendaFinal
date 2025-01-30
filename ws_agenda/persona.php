@@ -155,7 +155,7 @@ switch ($post['accion']) {
         if ($query && mysqli_num_rows($query) > 0) {
             $row = mysqli_fetch_assoc($query);
             $to = $row['correo_persona'];
-            $subject = "Recuperar contraseña";
+            $subject = "Recuperar password";
             $message = "Su contraseña es: " . $row['clave_persona'];
             $headers = "From:info@ioasystem.com" . "\r\n" .
                 "CC:ivan.ancallay@gmail.com";
