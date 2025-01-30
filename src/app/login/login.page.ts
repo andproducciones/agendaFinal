@@ -17,7 +17,7 @@ export class LoginPage {
     private loginService: LoginService,
     private router: Router,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   async login() {
     if (!this.correo || !this.password) {
@@ -26,10 +26,9 @@ export class LoginPage {
     }
 
     this.loginService.login(this.correo, this.password).subscribe(async response => {
-      console.log(response);
       if (!response.data.estado) {
         localStorage.setItem('userData', JSON.stringify(response.data));
-        
+
         this.router.navigate(['/home']); // Redirigir al Home después del login
       } else {
         this.showAlert('Error', 'Credenciales incorrectas.');
