@@ -38,11 +38,11 @@ export class LoginPage {
   }
 
   crearCuenta() {
-    this.router.navigate(['/register']); // Redirige a la página de registro
+    this.router.navigate(['/crear-cuenta']); // Redirige a la página de registro
   }
 
   recuperarPassword() {
-    this.router.navigate(['/recuperar-password']); // Redirige a la recuperación de contraseña
+    this.router.navigate(['/recuperar-contrasena']); // Redirige a la recuperación de contraseña
   }
 
   async showAlert(title: string, message: string) {
