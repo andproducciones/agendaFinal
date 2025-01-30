@@ -28,13 +28,21 @@ export class LoginPage {
     this.loginService.login(this.cedula, this.password).subscribe(async response => {
       if (response.respuesta.estado) {
         localStorage.setItem('userData', JSON.stringify(response.data));
-        this.router.navigate(['/home']); // Redirige al Home
+        this.router.navigate(['/home']); // Redirigir al Home después del login
       } else {
         this.showAlert('Error', 'Credenciales incorrectas.');
       }
     }, error => {
       this.showAlert('Error', 'No se pudo conectar con el servidor.');
     });
+  }
+
+  crearCuenta() {
+    this.router.navigate(['/register']); // Redirige a la página de registro
+  }
+
+  recuperarPassword() {
+    this.router.navigate(['/recuperar-password']); // Redirige a la recuperación de contraseña
   }
 
   async showAlert(title: string, message: string) {
