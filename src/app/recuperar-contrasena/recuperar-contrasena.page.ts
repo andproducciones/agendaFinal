@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { LoginService } from '../services/login/login.service';
+import { PersonaService } from '../services/persona.service';
 
 @Component({
   selector: 'app-recuperar-contrasena',
@@ -9,15 +9,15 @@ import { LoginService } from '../services/login/login.service';
   styleUrls: ['./recuperar-contrasena.page.scss'],
   standalone: false
 })
-export class RecuperarContrasenaPage  {
+export class RecuperarContrasenaPage {
 
   correo: string = '';
 
   constructor(
-    private loginService: LoginService,
+    private personaService: PersonaService,
     private router: Router,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   async recuperarPassword() {
     if (!this.correo) {
@@ -25,7 +25,7 @@ export class RecuperarContrasenaPage  {
       return;
     }
 
-    this.loginService.recuperarPassword(this.correo).subscribe(async response => {
+    this.personaService.recuperarPassword(this.correo).subscribe(async response => {
       if (response.estado) {
         this.showAlert('Éxito', 'Te hemos enviado un correo con instrucciones.');
         this.router.navigate(['/login']);

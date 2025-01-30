@@ -10,7 +10,7 @@ import { LoginService } from '../services/login/login.service';
   standalone: false
 })
 export class LoginPage {
-  cedula: string = '';
+  correo: string = '';
   password: string = '';
 
   constructor(
@@ -20,14 +20,16 @@ export class LoginPage {
   ) {}
 
   async login() {
-    if (!this.cedula || !this.password) {
-      this.showAlert('Error', 'Ingrese su cédula y contraseña.');
+    if (!this.correo || !this.password) {
+      this.showAlert('Error', 'Ingrese su correo y contraseña.');
       return;
     }
 
-    this.loginService.login(this.cedula, this.password).subscribe(async response => {
-      if (response.respuesta.estado) {
+    this.loginService.login(this.correo, this.password).subscribe(async response => {
+      console.log(response);
+      if (!response.data.estado) {
         localStorage.setItem('userData', JSON.stringify(response.data));
+        
         this.router.navigate(['/home']); // Redirigir al Home después del login
       } else {
         this.showAlert('Error', 'Credenciales incorrectas.');

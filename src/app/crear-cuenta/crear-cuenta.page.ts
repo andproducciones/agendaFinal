@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { LoginService } from '../services/login/login.service';
+import { PersonaService } from '../services/persona.service';
 
 @Component({
   selector: 'app-crear-cuenta',
@@ -18,10 +18,10 @@ export class CrearCuentaPage {
   confirmPassword: string = '';
 
   constructor(
-    private loginService: LoginService,
+    private personaService: PersonaService,
     private router: Router,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   async registrarUsuario() {
     if (!this.nombre || !this.apellido || !this.cedula || !this.correo || !this.password || !this.confirmPassword) {
@@ -34,7 +34,7 @@ export class CrearCuentaPage {
       return;
     }
 
-    this.loginService.registrar({
+    this.personaService.registrar({
       nombre: this.nombre,
       apellido: this.apellido,
       cedula: this.cedula,
