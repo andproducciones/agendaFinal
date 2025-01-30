@@ -1,10 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-<<<<<<< Updated upstream
-import { Observable } from 'rxjs/internal/Observable';
-=======
 import { Observable } from 'rxjs';
->>>>>>> Stashed changes
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +8,6 @@ import { Observable } from 'rxjs';
 export class PersonaService {
 private API_URL = 'https://agenda.ioasystem.com/persona.php'; // Cambia esto a la URL de tu backend
 
-<<<<<<< Updated upstream
   constructor(private http: HttpClient) { }
 
   registrar(datos: any): Observable<any> {
@@ -40,9 +35,5 @@ private API_URL = 'https://agenda.ioasystem.com/persona.php'; // Cambia esto a l
 
     return this.http.post(this.API_URL, { accion: 'dato', codigo }, { headers });
   }
-=======
-  
-  constructor() {}
 
->>>>>>> Stashed changes
 }

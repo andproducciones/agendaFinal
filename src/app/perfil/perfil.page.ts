@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { PersonaService } from '../services/persona.service';
+
+import { PerfilService } from '../services/perfil/perfil.service';
 
 @Component({
   selector: 'app-perfil',
@@ -19,7 +20,7 @@ export class PerfilPage implements OnInit {
   };
 
   constructor(
-    private personaService: PersonaService,
+    private perfilService: PerfilService,
     private router: Router,
     private alertController: AlertController
   ) {}
@@ -36,7 +37,7 @@ export class PerfilPage implements OnInit {
   }
 
   guardarCambios() {
-    this.personaService.actualizarPerfil(this.usuario).subscribe(async response => {
+    this.perfilService.actualizarPerfil(this.usuario).subscribe(async response => {
       if (response.estado) {
         localStorage.setItem('userData', JSON.stringify(this.usuario));
         this.showAlert('Éxito', 'Tus datos han sido actualizados correctamente.');
