@@ -25,17 +25,19 @@ export class LoginPage {
       return;
     }
 
-    this.loginService.login(this.correo, this.password).subscribe(async response => {
-      if (!response.data.estado) {
-        localStorage.setItem('userData', JSON.stringify(response.data));
+    this.loginService.login(this.correo, this.password).subscribe(
+      async (response) => {
+        if (response && response.data) {
+          localStorage.setItem('userData', JSON.stringify(response.data));
 
-        this.router.navigate(['/menu']); // Redirigir al Home después del login
-      } else {
-        this.showAlert('Error', 'Credenciales incorrectas.');
-      }
-    }, error => {
-      this.showAlert('Error', 'No se pudo conectar con el servidor.');
-    });
+          // Pasar los datos al menú al navegar
+          this.router.navigate(['/menu'], { state: { userData: response.data } });
+        } else {
+          this.showAlert('Error', 'Credenciales incorrectas.');
+        }
+      }, error => {
+        this.showAlert('Error', 'No se pudo conectar con el servidor.');
+      });
   }
 
   crearCuenta() {

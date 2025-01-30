@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular'; // ✅ Importamos el módulo completo de Ionic
+import { ActivatedRoute, Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,23 +8,29 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-menu',
   templateUrl: './menu.page.html',
   styleUrls: ['./menu.page.scss'],
-  standalone: true, // ✅ Define el componente como standalone
-  imports: [IonicModule, CommonModule, FormsModule] // ✅ Se importa IonicModule en lugar de componentes individuales
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class MenuPage implements OnInit {
-  nombreUsuario: string = 'Usuario'; // Nombre por defecto
+  userData: any;
 
-  constructor(private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    // Obtener datos del usuario desde el localStorage
-    const userData = localStorage.getItem('userData');
-    if (userData) {
-      const usuario = JSON.parse(userData);
-      this.nombreUsuario = usuario.nombre || 'Usuario';
+    // Obtener los datos del usuario desde la navegación
+    if (this.router.getCurrentNavigation()?.extras.state?.['userData']) {
+      this.userData = this.router.getCurrentNavigation()?.extras.state?.['userData'];
+      console.log('Datos del usuario desde navegación:', this.userData);
+    } else {
+      // Intentar recuperar desde localStorage si no vienen en la navegación
+      const storedUserData = localStorage.getItem('userData');
+      if (storedUserData) {
+        this.userData = JSON.parse(storedUserData);
+        console.log('Datos del usuario desde localStorage:', this.userData);
+      }
     }
   }
-
+  
   irPerfil() {
     this.router.navigate(['/perfil']); // Navegar a la página de perfil
   }
@@ -34,3 +40,5 @@ export class MenuPage implements OnInit {
     this.router.navigate(['/login']); // Redirigir al login
   }
 }
+
+

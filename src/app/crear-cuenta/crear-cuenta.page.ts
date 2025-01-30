@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { PersonaService } from '../services/persona.service';
+import { PersonaService } from '../services/persona/persona.service';
 
 @Component({
   selector: 'app-crear-cuenta',
