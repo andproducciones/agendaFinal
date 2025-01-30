@@ -1,27 +1,46 @@
-#container {
+/* Estilo general para el fondo amarillo */
+.splash-page {
+  --background: #fff; /* Fondo amarillo (color inspirado en el logo) */
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+  overflow: hidden; /* Evita cualquier scroll */
+  margin: 0; /* Elimina márgenes */
+  padding: 0; /* Elimina padding */
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+/* Contenedor principal */
+.splash-container {
+  display: flex;
+  flex-direction: column; /* Alinear verticalmente */
+  justify-content: center; /* Centrar contenido verticalmente */
+  align-items: center; /* Centrar contenido horizontalmente */
+  animation: fadeIn 2s ease-in-out;
+  height: 100vh;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+/* Estilo del logo */
+.logo {
+  width: 200px; /* Ajustar el tamaño del logo */
+  height: auto; /* Mantener proporciones */
+  margin-bottom: 20px; /* Separación del texto */
 }
 
-#container a {
-  text-decoration: none;
+/* Texto de carga */
+.splash-title {
+  font-size: 1.5rem; /* Tamaño de letra */
+  font-weight: bold;
+  color: #000; /* Color negro para contraste */
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
