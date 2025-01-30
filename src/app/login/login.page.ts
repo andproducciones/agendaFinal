@@ -29,7 +29,7 @@ export class LoginPage {
       if (!response.data.estado) {
         localStorage.setItem('userData', JSON.stringify(response.data));
 
-        this.router.navigate(['/home']); // Redirigir al Home después del login
+        this.router.navigate(['/menu']); // Redirigir al Home después del login
       } else {
         this.showAlert('Error', 'Credenciales incorrectas.');
       }
