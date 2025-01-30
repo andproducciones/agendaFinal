@@ -146,6 +146,26 @@ switch ($post['accion']) {
         }
         break;
 
+    case 'recorver_pass':
+        $sql = sprintf(
+            "SELECT * FROM persona WHERE correo_persona='%s'",
+            mysqli_real_escape_string($conn, $post['correo'])
+        );
+        $query = mysqli_query($conn, $sql);
+        if ($query && mysqli_num_rows($query) > 0) {
+            $row = mysqli_fetch_assoc($query);
+            $to = $row['correo_persona'];
+            $subject = "Recuperar contraseña";
+            $message = "Su contraseña es: " . $row['clave_persona'];
+            $headers = "From:info@ioasystem.com" . "\r\n" .
+                "CC:ivan.ancallay@gmail.com";
+            mail($to, $subject, $message, $headers);
+            $respuesta = ['code' => 200, 'response' => 'Correo enviado', 'estado' => true];
+        } else {
+            $respuesta = ['code' => 400, 'response' => 'No data found', 'estado' => false];
+        }
+        break;
+
     default:
         $respuesta = ['code' => 400, 'response' => 'Invalid action', 'estado' => false];
         break;
