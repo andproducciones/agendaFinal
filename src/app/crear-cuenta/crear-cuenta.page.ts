@@ -14,7 +14,7 @@ export class CrearCuentaPage {
   apellido: string = '';
   cedula: string = '';
   correo: string = '';
-  password: string = '';
+  clave: string = '';
   confirmPassword: string = '';
 
   constructor(
@@ -24,12 +24,12 @@ export class CrearCuentaPage {
   ) { }
 
   async registrarUsuario() {
-    if (!this.nombre || !this.apellido || !this.cedula || !this.correo || !this.password || !this.confirmPassword) {
+    if (!this.nombre || !this.apellido || !this.cedula || !this.correo || !this.clave || !this.confirmPassword) {
       this.showAlert('Error', 'Todos los campos son obligatorios.');
       return;
     }
 
-    if (this.password !== this.confirmPassword) {
+    if (this.clave !== this.confirmPassword) {
       this.showAlert('Error', 'Las contraseñas no coinciden.');
       return;
     }
@@ -39,7 +39,7 @@ export class CrearCuentaPage {
       apellido: this.apellido,
       cedula: this.cedula,
       correo: this.correo,
-      password: this.password
+      clave: this.clave
     }).subscribe(async response => {
       if (response.estado) {
         this.showAlert('Éxito', 'Cuenta creada exitosamente. Ahora inicia sesión.');
