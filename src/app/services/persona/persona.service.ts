@@ -15,6 +15,7 @@ export class PersonaService {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
+    console.log(datos);
 
     return this.http.post(this.API_URL, { accion: 'insertar', ...datos }, { headers });
   }
