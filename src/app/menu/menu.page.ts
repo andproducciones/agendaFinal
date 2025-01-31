@@ -20,6 +20,7 @@ export class MenuPage implements OnInit {
     // Obtener los datos del usuario desde la navegación
     if (this.router.getCurrentNavigation()?.extras.state?.['userData']) {
       this.userData = this.router.getCurrentNavigation()?.extras.state?.['userData'];
+      window.location.reload();
       console.log('Datos del usuario desde navegación:', this.userData);
     } else {
       // Intentar recuperar desde localStorage si no vienen en la navegación

@@ -17,8 +17,8 @@ export class PerfilService {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
-
-    return this.http.post(this.API_URL, { accion: 'actualizar', ...usuario }, { headers });
+    console.log(usuario);
+    return this.http.post(this.API_URL, { accion: "actualizar", usuario }, { headers });
   }
 
 

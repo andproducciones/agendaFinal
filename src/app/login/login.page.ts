@@ -35,7 +35,7 @@ export class LoginPage {
     }
 
     this.loginService.login(this.correo, this.password).subscribe(async response => {
-      if (response.data && response.data.estado) {
+      if (response && response.data) {
         localStorage.setItem('userData', JSON.stringify(response.data));
         this.router.navigate(['/menu']); // Redirigir al menú después del login
         this.intentosFallidos = 0; // Reiniciar intentos al ingresar correctamente

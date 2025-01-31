@@ -11,34 +11,37 @@ import { PerfilService } from '../services/perfil/perfil.service';
   standalone: false
 })
 export class PerfilPage implements OnInit {
-  userData: any;
-
+  usuario: any = {
+    cedula: '',
+    nombre: '',
+    apellido: '',
+    correo: '',
+    password: ''
+  };
 
   constructor(
     private perfilService: PerfilService,
     private router: Router,
     private alertController: AlertController
-  ) { }
+  ) {}
 
   ngOnInit() {
-    // Obtener los datos del usuario desde la navegación
-    if (this.router.getCurrentNavigation()?.extras.state?.['userData']) {
-      this.userData = this.router.getCurrentNavigation()?.extras.state?.['userData'];
-    } else {
-      // Intentar recuperar desde localStorage si no vienen en la navegación
-      const storedUserData = localStorage.getItem('userData');
-      if (storedUserData) {
-        this.userData = JSON.parse(storedUserData);
-      }
+    this.cargarDatosUsuario();
+  }
+
+  cargarDatosUsuario() {
+    const userData = localStorage.getItem('userData');
+    if (userData) {
+      this.usuario = JSON.parse(userData);
     }
   }
 
   guardarCambios() {
-    console.log(this.userData);
-    this.perfilService.actualizarPerfil(this.userData).subscribe(async response => {
-      if (response.data) {
-        localStorage.setItem('userData', JSON.stringify(response.data));
+    this.perfilService.actualizarPerfil(this.usuario).subscribe(async response => {
+      if (response.estado) {
+        localStorage.setItem('userData', JSON.stringify(this.usuario));
         this.showAlert('Éxito', 'Tus datos han sido actualizados correctamente.');
+        window.location.reload();
       } else {
         this.showAlert('Error', 'No se pudo actualizar la información.');
       }
